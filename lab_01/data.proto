@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+service DataProcessor {
+  rpc ProcessDataBatch (stream DataPoint) returns (Result);
+}
+
+message DataPoint {
+  int32 value = 1;
+}
+
+message Result {
+  int32 sum = 1;
+  float average = 2;
+}
