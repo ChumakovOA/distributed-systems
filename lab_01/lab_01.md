@@ -22,7 +22,7 @@ ProcessDataBatch(stream DataPoint)
 ## Архитектура решения
 
 В работе реализована клиент-серверная архитектура.
-
+```mermaid
 flowchart LR
 
 Client[Client<br>client.py]
@@ -40,7 +40,7 @@ Proto --> Generated
 
 Generated --> Server
 Generated --> Client
-
+```
 Компоненты системы
 
 Client (client.py)  
