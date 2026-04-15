@@ -160,7 +160,7 @@ python3 app.py
 
 Получение списка всех проектов:
 ```bash
-curl http://localhost:5000/api/projects
+curl http://127.0.0.1:5000/api/projects
 ```
 
 <img width="529" height="316" alt="image" src="https://github.com/user-attachments/assets/6d2b3378-7ef9-4c1f-b775-5575b6745370" />
@@ -171,7 +171,7 @@ curl http://localhost:5000/api/projects
 ```bash
 curl -X POST -H "Content-Type: application/json" \
 -d '{"project_name": "AI development", "manager": "Rosalina"}' \
-http://localhost:5000/api/projects
+http://127.0.0.1:5000/api/projects
 ```
 
 <img width="1280" height="219" alt="image" src="https://github.com/user-attachments/assets/160f94a2-3da0-45c0-a4d5-12e2923313c6" />
