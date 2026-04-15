@@ -91,8 +91,8 @@ API реализован с использованием **Flask**.
 ```json
 {
   "id": 1,
-  "project_name": "Банановая ферма",
-  "manager": "Шимпанзе Чичи"
+  "project_name": "Farm",
+  "manager": "Qiqi"
 }
 ```
 
