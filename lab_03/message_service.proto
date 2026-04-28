@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package message;
+
+// Основной сервис с тремя методами для варианта 19
+service ABTestingService {
+  // Задание 1: A/B тестирование
+  rpc AssignAB (ABRequest) returns (ABResponse);
+  // Задание 2: Факториал
+  rpc Factorial (FactorialRequest) returns (FactorialResponse);
+  // Задание 3: Самая частая буква
+  rpc MostFrequentLetter (TextRequest) returns (LetterResponse);
+}
+
+// --- Сообщения для задания 1 ---
+message ABRequest {
+  int32 user_id = 1;
+}
+
+message ABResponse {
+  string group_name = 1; // "A" или "B"
+}
+
+// --- Сообщения для задания 2 ---
+message FactorialRequest {
+  int32 number = 1;
+}
+
+message FactorialResponse {
+  int64 result = 1;
+}
+
+// --- Сообщения для задания 3 ---
+message TextRequest {
+  string text = 1;
+}
+
+message LetterResponse {
+  string most_frequent_letter = 1;
+}
