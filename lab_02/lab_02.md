@@ -53,10 +53,10 @@ flowchart LR
 
 ### Анализ HTTP-ответов kommersant.ru
 
-Для анализа HTTP-запросов использовалась утилита `telenet`.
+Для анализа HTTP-запросов использовалась утилита `telnet`.
 
 ```bash
-telenet http://kommersant.ru/ 80
+telnet http://kommersant.ru/ 80
 ```
 
 **Что было проанализировано в выводе:**
