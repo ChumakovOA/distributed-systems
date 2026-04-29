@@ -21,7 +21,7 @@
 
 ```mermaid
 flowchart LR
-    Client[Клиент<br>curl / браузер]
+    Client[Клиент<br> / браузер]
     Nginx[Nginx<br>обратный прокси]
     Flask[Flask API<br>app.py]
     Data[Хранилище данных<br>в памяти]
