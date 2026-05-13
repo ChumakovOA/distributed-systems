@@ -177,7 +177,7 @@ Consumer — это скрипт, который постоянно слушае
 
 Были выполнены запросы по всем задачам:
 
-<img width="1280" height="460" alt="image" src="https://github.com/user-attachments/assets/d08f6bc0-2c55-445c-9103-359a03231af4" />
+![Uploading image.png…]()
 
 ## Вывод
 
