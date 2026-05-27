@@ -25,12 +25,10 @@
 ```mermaid
 flowchart LR
     Client[Клиент] -->|1. Логин/пароль| Coord[Координатор<br/>:8000]
-    Coord -->|Прокси| Server1[Сервер 1<br/>:5001]
     Server1 -->|Токен| Coord
     Coord -->|Токен| Client
 
     Client -->|2. Токен + шифр| Coord
-    Coord -->|Прокси| Server1
     Server1 -->|Расшифровка| Coord
     Coord -->|Ответ| Client
 
