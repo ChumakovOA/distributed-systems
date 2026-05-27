@@ -23,35 +23,37 @@
 ### Схема архитектуры
 
 ```mermaid
-graph LR
-    subgraph "Клиентская часть"
-        Client[Клиент<br/>client.py]
-    end
+flowchart TB
+    Client[("Клиент<br/>(client.py)")]
 
-    subgraph "Балансировка и отказоустойчивость"
-        Coordinator[Координатор<br/>coordinator.py<br/>Порт 8000]
-    end
+    Coord[("Координатор<br/>(coordinator.py)<br/>Порт: 8000")]
 
-    subgraph "Серверная часть"
-        Server1[Сервер 1<br/>server.py<br/>Порт 5001<br/>mTLS + Fernet + Токены]
-        Server2[Сервер 2<br/>server.py<br/>Порт 5002<br/>mTLS + Fernet + Токены]
-    end
+    Server1[("Сервер 1<br/>(server.py)<br/>Порт: 5001")]
+    Server2[("Сервер 2<br/>(server.py)<br/>Порт: 5002")]
 
-    subgraph "Безопасность"
-        CA[Центр сертификации<br/>ca_cert.pem]
-    end
+    CA[("Центр сертификации<br/>(CA)")]
+    Fernet[("Ключ Fernet<br/>(encryption_key.txt)")]
 
-    Client -->|1. POST /login (логин/пароль)| Coordinator
-    Coordinator -->|прокси| Server1
-    Server1 -->|выдача токена| Coordinator
-    Coordinator -->|токен| Client
+    %% Этап 1: Получение токена
+    Client -->|"1. POST /login (логин/пароль)"| Coord
+    Coord -->|"Прокси"| Server1
+    Server1 -->|"2. Выдача токена"| Coord
+    Coord -->|"3. Токен доступа"| Client
 
-    Client -->|2. POST /api/data (токен + шифр)| Coordinator
-    Coordinator -->|прокси| Server1
-    Coordinator -.->|при отказе| Server2
+    %% Этап 2: Отправка данных
+    Client -->|"4. POST /api/data (токен + шифр)"| Coord
+    Coord -->|"Прокси"| Server1
+    Server1 -->|"5. Расшифрованный ответ"| Coord
+    Coord -->|"6. Ответ"| Client
 
-    Server1 -.->|сертификат| CA
+    %% Отказоустойчивость
+    Coord -.->|"При отказе Server1"| Server2
+
+    %% Безопасность
+    Server1 -.-> CA
+    Server2 -.-> CA
+    Client -.-> CA
+    Client -.-> Fernet
+    Server1 -.-> Fernet
+    Server2 -.-> Fernet
 ```
-    Server2 -.->|сертификат| CA
-    Client -.->|клиентский сертификат| Server1
-    Client -.->|клиентский сертификат| Server2
