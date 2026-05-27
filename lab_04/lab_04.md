@@ -23,35 +23,18 @@
 ### Схема архитектуры
 
 ```mermaid
-flowchart TB
-    Client[("Клиент<br/>(client.py)")]
+flowchart LR
+    Client[Клиент] -->|1. Логин/пароль| Coord[Координатор<br/>:8000]
+    Coord -->|Прокси| Server1[Сервер 1<br/>:5001]
+    Server1 -->|Токен| Coord
+    Coord -->|Токен| Client
 
-    Coord[("Координатор<br/>(coordinator.py)<br/>Порт: 8000")]
+    Client -->|2. Токен + шифр| Coord
+    Coord -->|Прокси| Server1
+    Server1 -->|Расшифровка| Coord
+    Coord -->|Ответ| Client
 
-    Server1[("Сервер 1<br/>(server.py)<br/>Порт: 5001")]
-    Server2[("Сервер 2<br/>(server.py)<br/>Порт: 5002")]
-
-    CA[("Центр сертификации<br/>(CA)")]
-    Fernet[("Ключ Fernet<br/>(encryption_key.txt)")]
-
-    %% Этап 1: Получение токена
-    Client -->|"1. POST /login (логин/пароль)"| Coord
-    Coord -->|"Прокси"| Server1
-    Server1 -->|"2. Выдача токена"| Coord
-    Coord -->|"3. Токен доступа"| Client
-
-    %% Этап 2: Отправка данных
-    Client -->|"4. POST /api/data (токен + шифр)"| Coord
-    Coord -->|"Прокси"| Server1
-    Server1 -->|"5. Расшифрованный ответ"| Coord
-    Coord -->|"6. Ответ"| Client
-
-    %% Отказоустойчивость
-    Coord -.->|"При отказе Server1"| Server2
-
-    %% Безопасность
-    Server1 -.-> CA
-    Server2 -.-> CA
+    Coord -.->|При отказе| Server2[Сервер 2<br/>:5002]
     Client -.-> CA
     Client -.-> Fernet
     Server1 -.-> Fernet
