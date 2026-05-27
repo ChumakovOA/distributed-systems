@@ -25,16 +25,14 @@
 ```mermaid
 flowchart LR
     Client[Клиент] -->|1. Логин/пароль| Coord[Координатор<br/>:8000]
+    Coord -->|Запрос| Server1[Сервер 1<br/>:5001]
     Server1 -->|Токен| Coord
     Coord -->|Токен| Client
 
     Client -->|2. Токен + шифр| Coord
+    Coord -->|Запрос| Server1
     Server1 -->|Расшифровка| Coord
     Coord -->|Ответ| Client
 
     Coord -.->|При отказе| Server2[Сервер 2<br/>:5002]
-    Client -.-> CA
-    Client -.-> Fernet
-    Server1 -.-> Fernet
-    Server2 -.-> Fernet
 ```
