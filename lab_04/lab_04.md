@@ -68,7 +68,7 @@
 ### 3.2. Схема потоков данных
 
 #### Схема 1: Базовая передача сообщений
-```
+```mermaid
 flowchart LR
     Client[Клиент] -->|1. POST /login| Coord[Координатор<br/>:8000]
     Coord -->|2. POST /login| Server1[Сервер 1<br/>:5001]
@@ -83,7 +83,7 @@ flowchart LR
 
 #### Схема 2: Шифрование Fernet
 
-```
+```mermaid
 flowchart LR
     A[Сообщение] -->|1. Исходные данные| B[Клиент]
     B -->|2. Fernet.encrypt| C[Зашифрованное сообщение]
